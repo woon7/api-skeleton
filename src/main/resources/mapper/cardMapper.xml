@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brique.admcapi.dao.CardDao">
+    <insert id="insertCardMaster" parameterType="com.brique.admcapi.dto.CardMasterDto">
+        INSERT INTO card_master
+        (
+            card_comp_code,
+            card_comp_name,
+            card_code,
+            card_name
+        )
+        VALUES
+        (
+            #{cardCompCode},
+            #{cardCompName},
+            #{cardCode},
+            #{cardName}
+        )
+    </insert>
+
+    <select id="selectCardMaster" resultType="com.brique.admcapi.dto.CardMasterDto">
+        SELECT * FROM card_master
+    </select>
+
+    <insert id="insertCardMember" parameterType="com.brique.admcapi.dto.CardMemberDto">
+        INSERT INTO card_member
+        (
+            card_code,
+            member_code
+        )
+        VALUES
+        (
+            #{cardCode},
+            #{memberCode}
+        )
+    </insert>
+
+    <select id="selectCardMember" resultType="com.brique.admcapi.dto.CardMemberDto">
+        SELECT * FROM card_member
+    </select>
+
+    <insert id="insertCardUseHistory" parameterType="com.brique.admcapi.dto.CardUseHistoryDto">
+        INSERT INTO card_use_history
+        (
+            card_code,
+            member_code,
+            use_date,
+            use_cost
+        )
+        VALUES
+        (
+            #{cardCode},
+            #{memberCode},
+            #{useDate},
+            #{useCost}
+        )
+    </insert>
+
+    <select id="selectCardUseHistory" resultType="com.brique.admcapi.dto.CardUseHistoryDto">
+        SELECT * FROM card_use_history
+    </select>
+
+    <insert id="insertMember" parameterType="com.brique.admcapi.dto.MemberDto">
+        INSERT INTO member
+        (
+            member_code,
+            member_name
+        )
+        VALUES
+        (
+            #{memberCode},
+            #{memberName}
+        )
+    </insert>
+
+    <select id="selectMember" resultType="com.brique.admcapi.dto.MemberDto">
+        SELECT * FROM member
+    </select>
+
+    <select id="selectCardCardMember" parameterType="hashMap" resultType="com.brique.admcapi.dto.CardCardMemberDto">
+        SELECT  card_member.card_code, member.member_code, member.member_name
+        FROM    member JOIN card_member ON member.member_code = card_member.member_code
+        WHERE   card_member.card_code = #{cardName}
+    </select>
+
+    <select id="selectCardMemberCardUseHistory" parameterType="hashMap" resultType="com.brique.admcapi.dto.CardMemberCardUseHistoryDto">
+        SELECT  use_date, use_cost
+        FROM    card_use_history
+        WHERE   card_code = #{cardCode} AND member_code = #{memberCode}
+    </select>
+
+    <select id="selectCardFull" resultType="com.brique.admcapi.dto.CardFullDto">
+        SELECT      cm.card_comp_name, cm.card_name, m.member_name, cuh.use_date, cuh.use_cost
+        FROM        card_use_history cuh,
+                    member m,
+                    card_master cm
+        WHERE       cuh.card_code = cm.card_code
+          AND       cuh.member_code = m.member_code
+        ORDER BY    cm.card_comp_name, cm.card_name, m.member_name, cuh.use_date, cuh.use_cost;
+    </select>
+</mapper>
