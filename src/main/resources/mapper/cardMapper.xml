@@ -98,4 +98,20 @@
           AND       cuh.member_code = m.member_code
         ORDER BY    cm.card_comp_name, cm.card_name, m.member_name, cuh.use_date, cuh.use_cost;
     </select>
+
+    <update id="updateCardUseHistory" parameterType="com.brique.admcapi.dto.CardUseHistoryDto">
+        UPDATE  card_use_history
+        SET     use_cost = #{useCost}
+        WHERE   card_code = #{cardCode}
+            AND member_code = #{memberCode}
+            AND use_date = #{useDate}
+    </update>
+
+    <delete id="deleteCardUseHistory" parameterType="hashMap">
+        DELETE
+        FROM    card_use_history
+        WHERE   card_code = #{cardCode}
+            AND member_code = #{memberCode}
+            AND use_date = #{useDate}
+    </delete>
 </mapper>

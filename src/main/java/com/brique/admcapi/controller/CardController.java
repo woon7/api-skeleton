@@ -5,6 +5,8 @@ import com.brique.admcapi.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+
 @RestController
 @RequestMapping("/card")
 public class CardController {
@@ -64,5 +66,15 @@ public class CardController {
     @GetMapping("/cardFull")
     public ResponseDto selectCardFull() {
         return cardService.selectCardFull();
+    }
+
+    @PutMapping("/cardUseHistory")
+    public ResponseDto updateCardUseHistory(@RequestBody CardUseHistoryDto cardUseHistoryDto) {
+        return cardService.updateCardUseHistory(cardUseHistoryDto);
+    }
+
+    @DeleteMapping("/cardUseHistory")
+    public ResponseDto deleteCardUseHistory(@RequestParam String cardCode, @RequestParam String memberCode, @RequestParam Date useDate) {
+        return cardService.deleteCardUseHistory(cardCode, memberCode, useDate);
     }
 }

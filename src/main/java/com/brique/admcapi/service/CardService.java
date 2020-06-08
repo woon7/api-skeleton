@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,5 +65,13 @@ public class CardService {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setData(cardDao.selectCardFull());
         return responseDto;
+    }
+
+    public ResponseDto updateCardUseHistory(CardUseHistoryDto cardUseHistoryDto) {
+        return new ResponseDto().setData(cardDao.updateCardUseHistory(cardUseHistoryDto));
+    }
+
+    public ResponseDto deleteCardUseHistory(String cardCode, String memberCode, Date useDate) {
+        return new ResponseDto().setData(cardDao.deleteCardUseHistory(cardCode, memberCode, useDate));
     }
 }

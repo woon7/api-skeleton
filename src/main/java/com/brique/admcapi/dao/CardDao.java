@@ -3,6 +3,7 @@ package com.brique.admcapi.dao;
 import com.brique.admcapi.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,8 @@ public interface CardDao {
     public List<CardMemberCardUseHistoryDto> selectCardMemberCardUseHistory(Map<String, Object> map);
 
     public List<CardFullDto> selectCardFull();
+
+    public int updateCardUseHistory(CardUseHistoryDto cardUseHistoryDto);
+
+    public int deleteCardUseHistory(String cardCode, String memberCode, Date useDate);
 }
