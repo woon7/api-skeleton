@@ -99,12 +99,16 @@
         ORDER BY    cm.card_comp_name, cm.card_name, m.member_name, cuh.use_date, cuh.use_cost;
     </select>
 
-    <update id="updateCardUseHistory" parameterType="com.brique.admcapi.dto.CardUseHistoryDto">
+    <update id="updateCardUseHistory" parameterType="com.brique.admcapi.dto.UpdateCardUseHistoryDto">
         UPDATE  card_use_history
-        SET     use_cost = #{useCost}
-        WHERE   card_code = #{cardCode}
-            AND member_code = #{memberCode}
-            AND use_date = #{useDate}
+            JOIN member ON card_use_history.member_code = member.member_code
+            JOIN card_master ON card_use_history.card_code = card_master.card_code
+            SET use_cost = #{useCost}
+        WHERE   member.member_name = #{memberName}
+          AND   card_master.card_name = #{cardName}
+          AND   card_use_history.card_code = #{cardCode}
+          AND   card_use_history.member_code = #{memberCode}
+          AND   card_use_history.use_date = #{useDate}
     </update>
 
     <delete id="deleteCardUseHistory" parameterType="hashMap">
@@ -114,4 +118,14 @@
             AND member_code = #{memberCode}
             AND use_date = #{useDate}
     </delete>
+
+    <select id="selectCardFull2" resultType="com.brique.admcapi.dto.CardFull2Dto">
+        SELECT      cm.card_comp_name, cm.card_name, m.member_name, cuh.use_date, cuh.use_cost, cm.card_code, m.member_code, cm.card_comp_code
+        FROM        card_use_history cuh,
+                    member m,
+                    card_master cm
+        WHERE       cuh.card_code = cm.card_code
+          AND       cuh.member_code = m.member_code
+        ORDER BY    cm.card_comp_name, cm.card_name, m.member_name, cuh.use_date, cuh.use_cost;
+    </select>
 </mapper>

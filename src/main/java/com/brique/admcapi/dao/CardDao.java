@@ -31,7 +31,9 @@ public interface CardDao {
 
     public List<CardFullDto> selectCardFull();
 
-    public int updateCardUseHistory(CardUseHistoryDto cardUseHistoryDto);
+    public int updateCardUseHistory(UpdateCardUseHistoryDto cardUseHistoryDto);
 
     public int deleteCardUseHistory(String cardCode, String memberCode, Date useDate);
+
+    public List<CardFull2Dto> selectCardFull2();
 }

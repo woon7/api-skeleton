@@ -69,12 +69,17 @@ public class CardController {
     }
 
     @PutMapping("/cardUseHistory")
-    public ResponseDto updateCardUseHistory(@RequestBody CardUseHistoryDto cardUseHistoryDto) {
+    public ResponseDto updateCardUseHistory(@RequestBody UpdateCardUseHistoryDto cardUseHistoryDto) {
         return cardService.updateCardUseHistory(cardUseHistoryDto);
     }
 
     @DeleteMapping("/cardUseHistory")
     public ResponseDto deleteCardUseHistory(@RequestParam String cardCode, @RequestParam String memberCode, @RequestParam Date useDate) {
         return cardService.deleteCardUseHistory(cardCode, memberCode, useDate);
+    }
+
+    @GetMapping("/selectCardFull2")
+    public ResponseDto selectCardFull2() {
+        return cardService.selectCardFull2();
     }
 }

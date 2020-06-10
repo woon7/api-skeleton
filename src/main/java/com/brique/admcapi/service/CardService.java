@@ -67,11 +67,15 @@ public class CardService {
         return responseDto;
     }
 
-    public ResponseDto updateCardUseHistory(CardUseHistoryDto cardUseHistoryDto) {
+    public ResponseDto updateCardUseHistory(UpdateCardUseHistoryDto cardUseHistoryDto) {
         return new ResponseDto().setData(cardDao.updateCardUseHistory(cardUseHistoryDto));
     }
 
     public ResponseDto deleteCardUseHistory(String cardCode, String memberCode, Date useDate) {
         return new ResponseDto().setData(cardDao.deleteCardUseHistory(cardCode, memberCode, useDate));
+    }
+
+    public ResponseDto selectCardFull2() {
+        return new ResponseDto().setData(cardDao.selectCardFull2());
     }
 }

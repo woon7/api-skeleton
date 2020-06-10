@@ -2,11 +2,13 @@ package com.brique.admcapi.dto;
 
 import java.sql.Date;
 
-public class CardUseHistoryDto {
+public class UpdateCardUseHistoryDto {
     private String cardCode;
     private String memberCode;
     private Date useDate;
     private String useCost;
+    private String memberName;
+    private String cardName;
 
     public String getCardCode() {
         return cardCode;
@@ -38,5 +40,21 @@ public class CardUseHistoryDto {
 
     public void setUseCost(String useCost) {
         this.useCost = useCost;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 }
