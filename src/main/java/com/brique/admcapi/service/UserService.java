@@ -1,14 +1,14 @@
 package com.brique.admcapi.service;
 
-import com.brique.admcapi.config.security.JwtTokenProvider;
+import com.brique.admcapi.security.JwtTokenProvider;
 import com.brique.admcapi.dao.UserDao;
 import com.brique.admcapi.dto.ResponseDto;
 import com.brique.admcapi.dto.UserDto;
+import com.brique.admcapi.exception.IncorrectPasswordException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +30,7 @@ public class UserService {
     public ResponseDto signIn(String username, String password) {
         UserDto userDto = customUserDetailsService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDto.getPassword()))
-            throw new InvalidParameterException("Incorrect password.");
+            throw new IncorrectPasswordException("Incorrect password.");
         return new ResponseDto().setData(jwtTokenProvider.createToken(userDto.getUsername(), userDto.getRoles()));
     }
 

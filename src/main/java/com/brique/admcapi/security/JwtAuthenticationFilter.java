@@ -1,4 +1,4 @@
-package com.brique.admcapi.config.security;
+package com.brique.admcapi.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

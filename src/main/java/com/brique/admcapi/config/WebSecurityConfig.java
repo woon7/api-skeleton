@@ -1,5 +1,9 @@
-package com.brique.admcapi.config.security;
+package com.brique.admcapi.config;
 
+import com.brique.admcapi.security.CustomAccessDeniedHandler;
+import com.brique.admcapi.security.CustomAuthenticationEntryPoint;
+import com.brique.admcapi.security.JwtAuthenticationFilter;
+import com.brique.admcapi.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,6 +44,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll() // 로그인 및 가입 기능은 누구나 접근 가능
                 .antMatchers(HttpMethod.GET, "/**").permitAll() // GET 요청 리소스는 누구나 접근 가능
                 .anyRequest().hasRole("USER") // 나머지 요청은 모두 인증된 회원이어야 함
+                .and()
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 토큰이 없거나, 형식에 맞지 않거나, 만료된 상태로 호출한 경우 예외처리
+                .and()
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler()) // 토큰이 유효하지만 권한이 부족한 경우
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 넣는다
     }

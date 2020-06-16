@@ -2,8 +2,8 @@ package com.brique.admcapi.service;
 
 import com.brique.admcapi.dao.UserDao;
 import com.brique.admcapi.dto.UserDto;
+import com.brique.admcapi.exception.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package com.brique.admcapi.config.security;
+package com.brique.admcapi.security;
 
 import com.brique.admcapi.service.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
