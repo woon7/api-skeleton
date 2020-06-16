@@ -2,7 +2,6 @@ package com.brique.admcapi.service;
 
 import com.brique.admcapi.dto.*;
 import com.brique.admcapi.dao.CardDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,11 @@ import java.util.Map;
 @Service
 @Transactional
 public class CardService {
-    @Autowired
-    CardDao cardDao;
+    private final CardDao cardDao;
+
+    public CardService(CardDao cardDao) {
+        this.cardDao = cardDao;
+    }
 
     public ResponseDto insertCardMaster(CardMasterDto cardMasterDto) {
         return new ResponseDto().setData(cardDao.insertCardMaster(cardMasterDto));

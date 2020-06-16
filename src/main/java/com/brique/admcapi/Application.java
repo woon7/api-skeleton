@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        System.setProperty("timestamp", new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()));
         SpringApplication.run(Application.class, args);
     }
 }

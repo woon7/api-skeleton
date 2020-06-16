@@ -25,9 +25,9 @@ public class LogAdvice {
         return result;
     }
 
-    @After("execution(com.brique.admcapi.dto.ResponseDto com.brique.admcapi.advice.ExceptionHandleAdvice.*(*))")
-    public void logError(JoinPoint jp) {
-        Exception e = (Exception) jp.getArgs()[0];
-        logger.error(e.getMessage());
-    }
+//    @After("execution(com.brique.admcapi.dto.ResponseDto com.brique.admcapi.advice.ExceptionHandleAdvice.*(*))")
+//    public void logError(JoinPoint jp) {
+//        Exception e = (Exception) jp.getArgs()[0];
+//        logger.error(e.getMessage());
+//    }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brique.admcapi.dao.UserDao">
+    <select id="selectUser" parameterType="string" resultType="com.brique.admcapi.dto.UserDto">
+        SELECT  *
+        FROM    user
+        WHERE   username = #{value}
+    </select>
+
+    <select id="selectRole" parameterType="string" resultType="string">
+        SELECT  rolename
+        FROM    role
+        WHERE   username = #{value}
+    </select>
+
+    <insert id="insertUser" parameterType="map">
+        INSERT INTO user
+        (
+            username,
+            password,
+            nickname,
+            account_non_expired,
+            account_non_locked,
+            credentials_non_expired,
+            enabled
+        )
+        VALUES
+        (
+            #{username},
+            #{password},
+            #{nickname},
+            1,
+            1,
+            1,
+            1
+        )
+    </insert>
+
+    <insert id="insertRole" parameterType="map">
+        INSERT INTO role
+        (
+            username,
+            rolename
+        )
+        SELECT #{username}, #{rolename}
+        WHERE NOT EXISTS
+        (
+            SELECT  *
+            FROM    role
+            WHERE   username = #{username}
+              AND   rolename = #{rolename}
+        )
+    </insert>
+</mapper>
